@@ -2,12 +2,10 @@
   "name": "ngrx",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
+    "serve:hmr": "ng serve --configuration hmr",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build:prod": "ng build --prod --build-optimizer --aot"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +18,8 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@angularclass/hmr": "^2.1.3",
+    "@ngrx/store": "^6.0.1",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
