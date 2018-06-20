@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-import { reducers } from './store';
+import { effects, reducers } from './store';
 // components
 import * as fromComponents from './components';
 // containers
@@ -12,8 +12,8 @@ import * as fromContainers from './containers';
 // services
 import * as fromServices from './services';
 import { StoreModule } from '@ngrx/store';
-import { SharedModule } from '../shared/shared.module';
 import { BaseUrlInterceptor } from '../interceptors/base-url.interceptor';
+import { EffectsModule } from '@ngrx/effects';
 
 // routes
 export const ROUTES: Routes = [
@@ -29,6 +29,7 @@ export const ROUTES: Routes = [
     HttpClientModule,
     RouterModule.forChild(ROUTES),
     StoreModule.forFeature('products', reducers),
+    EffectsModule.forFeature(effects),
     // SharedModule,
   ],
   providers: [...fromServices.services, { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true }],
