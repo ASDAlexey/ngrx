@@ -1,38 +1,25 @@
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { DECREMENT, INCREMENT, RESET } from './app.reducer';
 import { Component } from '@angular/core';
-
-interface AppState {
-  count: number;
-}
 
 @Component({
   selector: 'app-root',
+  styleUrls: ['app.component.scss'],
   template: `
-    <button (click)="increment()">Increment</button>
-    <div>Current Count: {{ count$ | async }}</div>
-    <button (click)="decrement()">Decrement</button>
-
-    <button (click)="reset()">Reset Counter</button>
+  <div class="app">
+    <div class="app__header">
+      <img src="/assets/img/logo.svg" class="app__logo">
+    </div>
+    <div class="app__content">
+      <div class="app__nav">
+        <a routerLink="products" routerLinkActive="active">Products</a>
+      </div>
+      <div class="app__container">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="app__footer">
+        <p>&copy; Ultimate Pizza Inc.</p>
+      </div>
+    </div>
+  </div>
   `,
 })
-export class AppComponent {
-  count$: Observable<number>;
-
-  constructor(private store: Store<AppState>) {
-    this.count$ = store.pipe(select('count'));
-  }
-
-  increment() {
-    this.store.dispatch({ type: INCREMENT });
-  }
-
-  decrement() {
-    this.store.dispatch({ type: DECREMENT });
-  }
-
-  reset() {
-    this.store.dispatch({ type: RESET });
-  }
-}
+export class AppComponent {}
