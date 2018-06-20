@@ -12,7 +12,7 @@ import * as fromContainers from './containers';
 // services
 import * as fromServices from './services';
 import { StoreModule } from '@ngrx/store';
-import { BaseUrlInterceptor } from '../interceptors/base-url.interceptor';
+import { BaseUrlInterceptor } from '../shared/interceptors/base-url.interceptor';
 import { EffectsModule } from '@ngrx/effects';
 
 // routes
