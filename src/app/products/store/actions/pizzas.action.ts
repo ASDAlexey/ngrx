@@ -6,18 +6,18 @@ export const LOAD_PIZZAS = '[Products] Load Pizzas';
 export const LOAD_PIZZAS_FAIL = '[Products] Load Pizzas Fail';
 export const LOAD_PIZZAS_SUCCESS = '[Products] Load Pizzas Success';
 
-export class loadPizzas implements Action {
+export class LoadPizzas implements Action {
   readonly type = LOAD_PIZZAS;
 }
 
-export class loadPizzasFail implements Action {
+export class LoadPizzasFail implements Action {
   readonly type = LOAD_PIZZAS_FAIL;
 
   constructor(public payload: any) {
   }
 }
 
-export class loadPizzasSuccess implements Action {
+export class LoadPizzasSuccess implements Action {
   readonly type = LOAD_PIZZAS_SUCCESS;
 
   constructor(public payload: Pizza[]) {
@@ -25,4 +25,4 @@ export class loadPizzasSuccess implements Action {
 }
 
 // action types
-export type PizzasAction = loadPizzas | loadPizzasFail | loadPizzasSuccess;
+export type PizzasAction = LoadPizzas | LoadPizzasFail | LoadPizzasSuccess;

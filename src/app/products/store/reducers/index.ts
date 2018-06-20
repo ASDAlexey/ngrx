@@ -2,7 +2,7 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 import * as fromPizzas from './pizzas.reducer';
 
 export interface ProductsState {
-  pizzas: fromPizzas.PizzasState,
+  pizzas: fromPizzas.PizzasState;
 }
 
 export const reducers: ActionReducerMap<ProductsState> = {
