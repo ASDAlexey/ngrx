@@ -32,7 +32,9 @@ export const ROUTES: Routes = [
     StoreRouterConnectingModule,
     environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
-  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
+  providers: [
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+  ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
 })

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { effects, reducers } from './store';
 // components
@@ -12,8 +12,8 @@ import * as fromContainers from './containers';
 // services
 import * as fromServices from './services';
 import { StoreModule } from '@ngrx/store';
-import { BaseUrlInterceptor } from '../shared/interceptors/base-url.interceptor';
 import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from '@app/shared/shared.module';
 
 // routes
 export const ROUTES: Routes = [
@@ -26,13 +26,12 @@ export const ROUTES: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule,
     RouterModule.forChild(ROUTES),
     StoreModule.forFeature('products', reducers),
     EffectsModule.forFeature(effects),
-    // SharedModule,
+    SharedModule.forRoot(),
   ],
-  providers: [...fromServices.services, { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true }],
+  providers: [...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components],
 })
