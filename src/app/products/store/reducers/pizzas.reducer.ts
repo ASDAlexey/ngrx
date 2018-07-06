@@ -29,6 +29,7 @@ export function reducer(state = initialState, action: fromPizzas.PizzasAction): 
     case fromPizzas.LOAD_PIZZAS_FAIL: {
       return { ...state, loading: false, loaded: true };
     }
+    case fromPizzas.UPDATE_PIZZA_SUCCESS:
     case fromPizzas.CREATE_PIZZA_SUCCESS: {
       const pizza = action.payload;
       const entities = {
@@ -40,8 +41,11 @@ export function reducer(state = initialState, action: fromPizzas.PizzasAction): 
     case fromPizzas.CREATE_PIZZA_FAIL: {
       return { ...state, loading: false, loaded: true };
     }
+    // case fromPizzas.UPDATE_PIZZA_FAIL: {
+    //   return { ...state, loading: false, loaded: true };
+    // }
   }
-  
+
   return state;
 }
 

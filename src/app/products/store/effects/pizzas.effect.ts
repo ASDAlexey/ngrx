@@ -4,7 +4,13 @@ import * as pizzaActions from '../actions/pizzas.action';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import * as fromServices from '../../services';
 import { of } from 'rxjs/internal/observable/of';
-import { CreatePizza, CreatePizzaFail, CreatePizzaSuccess } from '@app/products/store/actions/pizzas.action';
+import {
+  CreatePizza,
+  CreatePizzaFail,
+  CreatePizzaSuccess,
+  UpdatePizza, UpdatePizzaFail,
+  UpdatePizzaSuccess
+} from '@app/products/store/actions/pizzas.action';
 
 @Injectable()
 export class PizzasEffect {
@@ -28,6 +34,17 @@ export class PizzasEffect {
       return this.pizzaService.createPizza(pizzaData).pipe(
         map(pizza => new CreatePizzaSuccess(pizza)),
         catchError(error => of(new CreatePizzaFail(error))),
+      );
+    })
+  );
+
+  @Effect()
+  updatePizza$ = this.actions$.ofType(pizzaActions.UPDATE_PIZZA).pipe(
+    map((action: UpdatePizza) => action.payload),
+    switchMap((pizzaData) => {
+      return this.pizzaService.updatePizza(pizzaData).pipe(
+        map(pizza => new UpdatePizzaSuccess(pizza)),
+        catchError(error => of(new UpdatePizzaFail(error))),
       );
     })
   );

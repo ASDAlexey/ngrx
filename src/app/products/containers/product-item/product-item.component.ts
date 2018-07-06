@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Pizza } from '../../models/pizza.model';
 import { Topping } from '../../models/topping.model';
 import { select, Store } from '@ngrx/store';
-import { getPizzaVisualised, getSelectedPizza, LoadToppings, ProductsState, VisualizeToppings } from '@app/products/store';
+import { getPizzaVisualised, getSelectedPizza, ProductsState, VisualizeToppings } from '@app/products/store';
 import { Observable } from 'rxjs';
 import { getAllToppings } from '@app/products/store/selectors/toppings.selectors';
 import { tap } from 'rxjs/operators';
-import { CreatePizza } from '@app/products/store/actions/pizzas.action';
+import { CreatePizza, UpdatePizza } from '@app/products/store/actions/pizzas.action';
 
 @Component({
   selector: 'product-item',
@@ -58,7 +58,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   onUpdate(event: Pizza) {
-
+    this.store.dispatch(new UpdatePizza(event));
   }
 
   onRemove(event: Pizza) {
