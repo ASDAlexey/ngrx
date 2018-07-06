@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Pizza } from '../../models/pizza.model';
 import { Topping } from '../../models/topping.model';
 import { select, Store } from '@ngrx/store';
-import { getSelectedPizza, LoadToppings, ProductsState } from '@app/products/store';
+import { getPizzaVisualised, getSelectedPizza, LoadToppings, ProductsState, VisualizeToppings } from '@app/products/store';
 import { Observable } from 'rxjs';
 import { getAllToppings } from '@app/products/store/selectors/toppings.selectors';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'product-item',
@@ -20,7 +21,7 @@ import { getAllToppings } from '@app/products/store/selectors/toppings.selectors
         (update)="onUpdate($event)"
         (remove)="onRemove($event)">
         <pizza-display
-          [pizza]="visualise">
+          [pizza]="visualise$ | async">
         </pizza-display>
       </pizza-form>
     </div>
@@ -28,20 +29,27 @@ import { getAllToppings } from '@app/products/store/selectors/toppings.selectors
 })
 export class ProductItemComponent implements OnInit {
   pizza$: Observable<Pizza>;
-  visualise: Pizza;
+  visualise$: Observable<Pizza>;
   toppings$: Observable<Topping[]>;
 
   constructor(private store: Store<ProductsState>) {
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadToppings());
-    this.pizza$ = this.store.pipe(select(getSelectedPizza));
+    this.pizza$ = this.store.pipe(
+      select(getSelectedPizza),
+      tap((pizza: Pizza = null) => {
+        const pizzaExist = !!(pizza && pizza.toppings);
+        const toppings = pizzaExist ? pizza.toppings.map(topping => topping.id) : [];
+        this.store.dispatch(new VisualizeToppings(toppings));
+      })
+    );
     this.toppings$ = this.store.pipe(select(getAllToppings));
+    this.visualise$ = this.store.pipe(select(getPizzaVisualised));
   }
 
   onSelect(event: number[]) {
-    console.log(event);
+    this.store.dispatch(new VisualizeToppings(event));
   }
 
   onCreate(event: Pizza) {

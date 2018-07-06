@@ -20,15 +20,15 @@ export const getSelectedPizza = createSelector(
   }
 );
 
-// export const getPizzaVisualised = createSelector(
-//   getSelectedPizza,
-//   getToppingsEntities,
-//   getSelectedTopping,
-//   (pizza, toppingEntities, selectedToppings) => {
-//     const toppings = selectedToppings.map(id => toppingEntities[id]);
-//     return { ...pizza, toppings };
-//   }
-// );
+export const getPizzaVisualised = createSelector(
+  getSelectedPizza,
+  getToppingsEntities,
+  getSelectedTopping,
+  (pizza, toppingEntities, selectedToppings) => {
+    const toppings = selectedToppings.map(id => toppingEntities[id]);
+    return { ...pizza, toppings };
+  }
+);
 
 export const getAllPizzas = createSelector(
   getPizzasEntities,
