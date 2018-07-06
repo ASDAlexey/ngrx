@@ -34,6 +34,6 @@ export function reducer(state = initialState, action: ToppingsAction): ToppingsS
   return state;
 }
 
-export const getToppingsEntities = (state: ToppingsState) => state.entities;
+export const getToppingEntities = (state: ToppingsState) => state.entities;
 export const getToppingsLoading = (state: ToppingsState) => state.loading;
 export const getToppingsLoaded = (state: ToppingsState) => state.loaded;

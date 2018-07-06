@@ -4,6 +4,7 @@ import { Topping } from '../../models/topping.model';
 import { select, Store } from '@ngrx/store';
 import { getSelectedPizza, LoadToppings, ProductsState } from '@app/products/store';
 import { Observable } from 'rxjs';
+import { getAllToppings } from '@app/products/store/selectors/toppings.selectors';
 
 @Component({
   selector: 'product-item',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
       class="product-item">
       <pizza-form
         [pizza]="pizza$ | async"
-        [toppings]="toppings"
+        [toppings]="toppings$ | async"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
@@ -28,7 +29,7 @@ import { Observable } from 'rxjs';
 export class ProductItemComponent implements OnInit {
   pizza$: Observable<Pizza>;
   visualise: Pizza;
-  toppings: Topping[];
+  toppings$: Observable<Topping[]>;
 
   constructor(private store: Store<ProductsState>) {
   }
@@ -36,6 +37,7 @@ export class ProductItemComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new LoadToppings());
     this.pizza$ = this.store.pipe(select(getSelectedPizza));
+    this.toppings$ = this.store.pipe(select(getAllToppings));
   }
 
   onSelect(event: number[]) {
