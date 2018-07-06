@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pizza } from '../../models/pizza.model';
 import { Topping } from '../../models/topping.model';
-import { Store } from '@ngrx/store';
-import { getSelectedPizza, ProductsState } from '@app/products/store';
+import { select, Store } from '@ngrx/store';
+import { getSelectedPizza, LoadToppings, ProductsState } from '@app/products/store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -34,7 +34,8 @@ export class ProductItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pizza$ = this.store.select(getSelectedPizza);
+    this.store.dispatch(new LoadToppings());
+    this.pizza$ = this.store.pipe(select(getSelectedPizza));
   }
 
   onSelect(event: number[]) {
