@@ -1,4 +1,5 @@
-import { PizzasEffects } from './pizzas.effects';
+import { PizzasEffect } from './pizzas.effect';
+import { ToppingsEffect } from './toppings.effect';
 
-export const effects: any[] = [PizzasEffects];
-export * from './pizzas.effects';
+export const effects: any[] = [PizzasEffect, ToppingsEffect];
+export * from './pizzas.effect';

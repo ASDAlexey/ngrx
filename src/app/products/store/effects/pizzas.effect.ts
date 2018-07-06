@@ -6,7 +6,7 @@ import * as fromServices from '../../services';
 import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
-export class PizzasEffects {
+export class PizzasEffect {
   constructor(private actions$: Actions, private pizzaService: fromServices.PizzasService) {
   }
 
