@@ -6,6 +6,7 @@ import { getPizzaVisualised, getSelectedPizza, LoadToppings, ProductsState, Visu
 import { Observable } from 'rxjs';
 import { getAllToppings } from '@app/products/store/selectors/toppings.selectors';
 import { tap } from 'rxjs/operators';
+import { CreatePizza } from '@app/products/store/actions/pizzas.action';
 
 @Component({
   selector: 'product-item',
@@ -53,7 +54,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   onCreate(event: Pizza) {
-
+    this.store.dispatch(new CreatePizza(event));
   }
 
   onUpdate(event: Pizza) {
