@@ -5,7 +5,8 @@
     "serve:hmr": "concurrently --kill-others \"ng serve --configuration hmr\" \"npm run json-server\"",
     "build": "ng build",
     "build:prod": "ng build --prod",
-    "json-server": "node server"
+    "json-server": "node server",
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
