@@ -18,13 +18,14 @@ import { SharedModule } from '@app/shared/shared.module';
 // guards
 import { PizzasGuard } from '@app/products/guards/pizzas.guard';
 import { PizzaExistGuard } from '@app/products/guards/pizza-exist.guard';
+import { ToppingsGuard } from '@app/products/guards/toppings.guard';
 import { guards } from '@app/products/guards';
 
 // routes
 export const ROUTES: Routes = [
   { path: '', canActivate: [PizzasGuard], component: fromContainers.ProductsComponent },
-  { path: 'new', canActivate: [PizzasGuard], component: fromContainers.ProductItemComponent },
-  { path: ':pizzaId', canActivate: [PizzaExistGuard], component: fromContainers.ProductItemComponent },
+  { path: 'new', canActivate: [PizzasGuard, ToppingsGuard], component: fromContainers.ProductItemComponent },
+  { path: ':pizzaId', canActivate: [PizzaExistGuard, ToppingsGuard], component: fromContainers.ProductItemComponent },
 ];
 
 @NgModule({

@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { getPizzasLoaded, LoadPizzas, ProductsState } from '@app/products/store';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
-import { UpdatePizzaFail } from '@app/products/store/actions/pizzas.action';
 
 @Injectable()
 export class PizzasGuard implements CanActivate {

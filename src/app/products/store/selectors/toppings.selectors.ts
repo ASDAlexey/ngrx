@@ -22,6 +22,6 @@ export const getAllToppings = createSelector(
   (entities) => (Object.keys(entities).map(id => entities[parseInt(id, 10)])),
 );
 
-export const getPizzasLoaded = createSelector(getToppingsState, fromToppings.getToppingsLoaded);
+export const getToppingsLoaded = createSelector(getToppingsState, fromToppings.getToppingsLoaded);
 export const getPizzasLoading = createSelector(getToppingsState, fromToppings.getToppingsLoading);
 
