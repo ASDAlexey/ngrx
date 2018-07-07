@@ -11,6 +11,8 @@ import {
   UpdatePizza, UpdatePizzaFail,
   UpdatePizzaSuccess
 } from '@app/products/store/actions/pizzas.action';
+import { Pizza } from '@app/products/models/pizza.model';
+import { Go } from '@app/store/actions/router.action';
 
 @Injectable()
 export class PizzasEffect {
@@ -39,6 +41,11 @@ export class PizzasEffect {
   );
 
   @Effect()
+  createPizzaSuccess$ = this.actions$.ofType(pizzaActions.CREATE_PIZZA_SUCCESS).pipe(
+    map((action: CreatePizzaSuccess) => new Go({ path: ['/products', action.payload.id] })),
+  );
+
+  @Effect()
   updatePizza$ = this.actions$.ofType(pizzaActions.UPDATE_PIZZA).pipe(
     map((action: UpdatePizza) => action.payload),
     switchMap((pizzaData) => {
@@ -48,6 +55,7 @@ export class PizzasEffect {
       );
     })
   );
+
   @Effect()
   removePizza$ = this.actions$.ofType(pizzaActions.REMOVE_PIZZA).pipe(
     map((action: RemovePizza) => action.payload),
@@ -57,5 +65,13 @@ export class PizzasEffect {
         catchError(error => of(new RemovePizzaFail(error))),
       );
     })
+  );
+
+  @Effect()
+  handlePizzaSuccess$ = this.actions$.ofType(
+    pizzaActions.UPDATE_PIZZA_SUCCESS,
+    pizzaActions.REMOVE_PIZZA_SUCCESS,
+  ).pipe(
+    map((pizza: Pizza) => new Go({ path: ['/products'] }))
   );
 }
