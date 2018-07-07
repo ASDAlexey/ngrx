@@ -17,12 +17,14 @@ import { SharedModule } from '@app/shared/shared.module';
 
 // guards
 import { PizzasGuard } from '@app/products/guards/pizzas.guard';
+import { PizzaExistGuard } from '@app/products/guards/pizza-exist.guard';
+import { guards } from '@app/products/guards';
 
 // routes
 export const ROUTES: Routes = [
   { path: '', canActivate: [PizzasGuard], component: fromContainers.ProductsComponent },
   { path: 'new', canActivate: [PizzasGuard], component: fromContainers.ProductItemComponent },
-  { path: ':pizzaId', component: fromContainers.ProductItemComponent },
+  { path: ':pizzaId', canActivate: [PizzaExistGuard], component: fromContainers.ProductItemComponent },
 ];
 
 @NgModule({
@@ -34,7 +36,7 @@ export const ROUTES: Routes = [
     EffectsModule.forFeature(effects),
     SharedModule.forRoot(),
   ],
-  providers: [...fromServices.services, PizzasGuard],
+  providers: [...fromServices.services, ...guards],
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components],
 })
