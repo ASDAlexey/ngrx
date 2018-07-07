@@ -15,10 +15,13 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '@app/shared/shared.module';
 
+// guards
+import { PizzasGuard } from '@app/products/guards/pizzas.guard';
+
 // routes
 export const ROUTES: Routes = [
-  { path: '', component: fromContainers.ProductsComponent },
-  { path: 'new', component: fromContainers.ProductItemComponent },
+  { path: '', canActivate: [PizzasGuard], component: fromContainers.ProductsComponent },
+  { path: 'new', canActivate: [PizzasGuard], component: fromContainers.ProductItemComponent },
   { path: ':pizzaId', component: fromContainers.ProductItemComponent },
 ];
 
@@ -31,7 +34,7 @@ export const ROUTES: Routes = [
     EffectsModule.forFeature(effects),
     SharedModule.forRoot(),
   ],
-  providers: [...fromServices.services],
+  providers: [...fromServices.services, PizzasGuard],
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components],
 })
