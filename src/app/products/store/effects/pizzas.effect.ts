@@ -7,7 +7,7 @@ import { of } from 'rxjs/internal/observable/of';
 import {
   CreatePizza,
   CreatePizzaFail,
-  CreatePizzaSuccess,
+  CreatePizzaSuccess, RemovePizza, RemovePizzaFail, RemovePizzaSuccess,
   UpdatePizza, UpdatePizzaFail,
   UpdatePizzaSuccess
 } from '@app/products/store/actions/pizzas.action';
@@ -45,6 +45,16 @@ export class PizzasEffect {
       return this.pizzaService.updatePizza(pizzaData).pipe(
         map(pizza => new UpdatePizzaSuccess(pizza)),
         catchError(error => of(new UpdatePizzaFail(error))),
+      );
+    })
+  );
+  @Effect()
+  removePizza$ = this.actions$.ofType(pizzaActions.REMOVE_PIZZA).pipe(
+    map((action: RemovePizza) => action.payload),
+    switchMap((pizza) => {
+      return this.pizzaService.removePizza(pizza).pipe(
+        map(() => new RemovePizzaSuccess(pizza)),
+        catchError(error => of(new RemovePizzaFail(error))),
       );
     })
   );
